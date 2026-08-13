@@ -151,6 +151,74 @@ mainNav.querySelectorAll('a').forEach(link => {
   }
 })();
 
+(function initTeamPodium() {
+  const podium = document.getElementById('team-podium');
+  if (!podium) return;
+
+  const professors = [
+    { name: 'Professor 1', role: 'Faixa Preta · Head Coach' },
+    { name: 'Professor 2', role: 'Faixa Preta · Competição' },
+    { name: 'Professor 3', role: 'Faixa Preta · Infantil' },
+    { name: 'Professor 4', role: 'Faixa Preta · No-Gi' },
+  ];
+
+  for (let i = professors.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [professors[i], professors[j]] = [professors[j], professors[i]];
+  }
+
+  const dotsEl = document.getElementById('podium-dots');
+  professors.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.type = 'button';
+    dot.className = 'podium-dot';
+    dot.setAttribute('aria-label', `Ver professor ${i + 1}`);
+    dot.addEventListener('click', () => goTo(i));
+    dotsEl.appendChild(dot);
+  });
+  const dots = Array.from(dotsEl.children);
+
+  const slotEls = {
+    prev: podium.querySelector('[data-slot="prev"]'),
+    current: podium.querySelector('[data-slot="current"]'),
+    next: podium.querySelector('[data-slot="next"]'),
+  };
+
+  let current = 0;
+  const wrap = (i) => (i + professors.length) % professors.length;
+
+  function fill(el, prof) {
+    el.querySelector('h3').textContent = prof.name;
+    el.querySelector('.team-role').textContent = prof.role;
+  }
+
+  function render() {
+    fill(slotEls.prev, professors[wrap(current - 1)]);
+    fill(slotEls.current, professors[current]);
+    fill(slotEls.next, professors[wrap(current + 1)]);
+    dots.forEach((dot, i) => dot.classList.toggle('active', i === current));
+  }
+
+  function goTo(i) {
+    current = wrap(i);
+    render();
+  }
+
+  document.getElementById('podium-prev').addEventListener('click', () => goTo(current - 1));
+  document.getElementById('podium-next').addEventListener('click', () => goTo(current + 1));
+  slotEls.prev.addEventListener('click', () => goTo(current - 1));
+  slotEls.next.addEventListener('click', () => goTo(current + 1));
+
+  render();
+})();
+
+document.querySelectorAll('.family-card-link[data-nivel]').forEach(link => {
+  link.addEventListener('click', () => {
+    const select = document.querySelector('#contact-form select[name="nivel"]');
+    if (select) select.value = link.dataset.nivel;
+  });
+});
+
 const form = document.getElementById('contact-form');
 const note = document.getElementById('form-note');
 form.addEventListener('submit', (e) => {
