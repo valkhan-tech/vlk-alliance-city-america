@@ -156,16 +156,10 @@ mainNav.querySelectorAll('a').forEach(link => {
   if (!podium) return;
 
   const professors = [
-    { name: 'Professor 1', role: 'Faixa Preta · Head Coach' },
-    { name: 'Professor 2', role: 'Faixa Preta · Competição' },
-    { name: 'Professor 3', role: 'Faixa Preta · Infantil' },
-    { name: 'Professor 4', role: 'Faixa Preta · No-Gi' },
+    { name: 'Christian', role: 'Professor · Faixa-preta', photo: 'assets/img/professores/christian.jpeg' },
+    { name: 'Mauricio', role: 'Professor · Faixa-preta', photo: 'assets/img/professores/mauricio.jpeg' },
+    { name: 'Wallaf', role: 'Professor · Faixa-preta', photo: 'assets/img/professores/wallaf%202.jpeg' },
   ];
-
-  for (let i = professors.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [professors[i], professors[j]] = [professors[j], professors[i]];
-  }
 
   const dotsEl = document.getElementById('podium-dots');
   professors.forEach((_, i) => {
@@ -188,6 +182,9 @@ mainNav.querySelectorAll('a').forEach(link => {
   const wrap = (i) => (i + professors.length) % professors.length;
 
   function fill(el, prof) {
+    const photo = el.querySelector('.team-photo img');
+    photo.src = prof.photo;
+    photo.alt = `Professor ${prof.name}`;
     el.querySelector('h3').textContent = prof.name;
     el.querySelector('.team-role').textContent = prof.role;
   }
