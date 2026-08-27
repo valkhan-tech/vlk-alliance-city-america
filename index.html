@@ -318,7 +318,7 @@
         <h2 class="section-title">Agende sua aula experimental gratuita</h2>
         <p>Preencha seus dados e nossa equipe entra em contato pelo WhatsApp para marcar sua primeira aula, sem compromisso.</p>
       </div>
-      <form class="contact-form" id="contact-form">
+      <form class="contact-form" id="contact-form" novalidate>
         <label>
           Nome
           <input type="text" name="nome" required autocomplete="name">
@@ -336,6 +336,14 @@
             <option value="particular">Aula particular</option>
           </select>
         </label>
+
+        <!-- Honeypot anti-spam: campo invisível para humanos, visível para bots -->
+        <div class="hp-field" aria-hidden="true">
+          <label for="website">Não preencha este campo</label>
+          <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+        </div>
+        <input type="hidden" name="form_loaded_at" id="form_loaded_at" value="">
+
         <button type="submit" class="btn btn-primary btn-block">Quero minha aula grátis</button>
         <p class="form-note" id="form-note" role="status"></p>
       </form>
