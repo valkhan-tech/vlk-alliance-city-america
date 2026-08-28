@@ -156,9 +156,10 @@ mainNav.querySelectorAll('a').forEach(link => {
   if (!podium) return;
 
   const professors = [
+    { name: 'Alexandre', role: 'Professor · Faixa-preta', photo: 'assets/img/professores/alexandre.jpeg' },
     { name: 'Christian', role: 'Professor · Faixa-preta', photo: 'assets/img/professores/christian.jpeg' },
     { name: 'Mauricio', role: 'Professor · Faixa-preta', photo: 'assets/img/professores/mauricio.jpeg' },
-    { name: 'Wallaf', role: 'Professor · Faixa-preta', photo: 'assets/img/professores/wallaf%202.jpeg' },
+    { name: 'Wallaf', role: 'Professor · Faixa-marrom', photo: 'assets/img/professores/wallaf%202.jpeg' },
   ];
 
   const dotsEl = document.getElementById('podium-dots');
