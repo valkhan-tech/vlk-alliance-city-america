@@ -673,3 +673,13 @@ a.family-card-link{ display:block; padding: 2rem 1.6rem; margin: -2rem -1.6rem; 
   .footer-col, .footer-col--right{ justify-self:center; text-align:center; max-width:100%; }
   .footer-col--right .footer-social{ justify-content:center; }
 }
+
+/* Honeypot anti-spam: fora da tela, mas presente no DOM (bots costumam preencher tudo) */
+.hp-field{
+  position:absolute;
+  left:-9999px;
+  top:-9999px;
+  width:1px;
+  height:1px;
+  overflow:hidden;
+}

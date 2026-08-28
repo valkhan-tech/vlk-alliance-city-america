@@ -1,5 +1,26 @@
 document.getElementById('year').textContent = new Date().getFullYear();
 
+// --- Google Analytics (gtag) — eventos de clique em contato ---
+function trackEvent(name, params) {
+  if (typeof gtag === 'function') {
+    gtag('event', name, params || {});
+  }
+}
+
+// Delegação de clique: cobre links de WhatsApp e e-mail existentes e os que forem adicionados depois.
+document.addEventListener('click', (e) => {
+  const whatsappLink = e.target.closest('a[href*="wa.me"], a[href*="api.whatsapp.com"]');
+  if (whatsappLink) {
+    trackEvent('click_whatsapp', { link_url: whatsappLink.href });
+    return;
+  }
+
+  const emailLink = e.target.closest('a[href^="mailto:"]');
+  if (emailLink) {
+    trackEvent('click_email', { link_url: emailLink.href });
+  }
+});
+
 const heroCarousel = document.getElementById('hero-carousel');
 if (heroCarousel) {
   const slides = heroCarousel.querySelectorAll('.hero-bg-slide');
@@ -219,13 +240,52 @@ document.querySelectorAll('.family-card-link[data-nivel]').forEach(link => {
 
 const form = document.getElementById('contact-form');
 const note = document.getElementById('form-note');
-form.addEventListener('submit', (e) => {
+const formLoadedAtField = document.getElementById('form_loaded_at');
+
+// Marca o instante em que o formulário ficou visível, usado no back-end
+// como trava de tempo mínimo de preenchimento (proteção anti-bot).
+if (formLoadedAtField) {
+  formLoadedAtField.value = Math.floor(Date.now() / 1000);
+}
+
+form.addEventListener('submit', async (e) => {
   e.preventDefault();
+
   const nome = form.nome.value.trim();
   const whatsapp = form.whatsapp.value.trim();
   const nivel = form.nivel.value;
-  const texto = `Olá! Meu nome é ${nome} e quero agendar uma aula experimental na Alliance City América. Nível: ${nivel}. WhatsApp: ${whatsapp}`;
-  const url = `https://wa.me/?text=${encodeURIComponent(texto)}`;
-  note.textContent = 'Abrindo o WhatsApp para finalizar seu agendamento...';
-  window.open(url, '_blank', 'noopener');
+
+  if (nome.length < 2 || whatsapp.replace(/\D/g, '').length < 10) {
+    note.textContent = 'Preencha seu nome e um WhatsApp válido com DDD.';
+    return;
+  }
+
+  const submitBtn = form.querySelector('button[type="submit"]');
+  submitBtn.disabled = true;
+  note.textContent = 'Enviando...';
+  trackEvent('click_form', { form_id: 'contact-form' });
+
+  try {
+    const response = await fetch('contact.php', {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' },
+      body: new FormData(form),
+    });
+    const data = await response.json();
+    note.textContent = data.message || 'Recebemos seus dados!';
+
+    if (data.ok) {
+      form.reset();
+      if (formLoadedAtField) formLoadedAtField.value = Math.floor(Date.now() / 1000);
+
+      const texto = `Olá! Meu nome é ${nome} e quero agendar uma aula experimental na Alliance City América. Nível: ${nivel}. WhatsApp: ${whatsapp}`;
+      const url = `https://wa.me/?text=${encodeURIComponent(texto)}`;
+      trackEvent('click_whatsapp', { link_url: url, source: 'contact-form' });
+      window.open(url, '_blank', 'noopener');
+    }
+  } catch (err) {
+    note.textContent = 'Não foi possível enviar agora. Tente novamente em instantes.';
+  } finally {
+    submitBtn.disabled = false;
+  }
 });
