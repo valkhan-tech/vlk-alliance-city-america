@@ -1,5 +1,26 @@
 document.getElementById('year').textContent = new Date().getFullYear();
 
+// --- Google Analytics (gtag) — eventos de clique em contato ---
+function trackEvent(name, params) {
+  if (typeof gtag === 'function') {
+    gtag('event', name, params || {});
+  }
+}
+
+// Delegação de clique: cobre links de WhatsApp e e-mail existentes e os que forem adicionados depois.
+document.addEventListener('click', (e) => {
+  const whatsappLink = e.target.closest('a[href*="wa.me"], a[href*="api.whatsapp.com"]');
+  if (whatsappLink) {
+    trackEvent('click_whatsapp', { link_url: whatsappLink.href });
+    return;
+  }
+
+  const emailLink = e.target.closest('a[href^="mailto:"]');
+  if (emailLink) {
+    trackEvent('click_email', { link_url: emailLink.href });
+  }
+});
+
 const heroCarousel = document.getElementById('hero-carousel');
 if (heroCarousel) {
   const slides = heroCarousel.querySelectorAll('.hero-bg-slide');
@@ -241,6 +262,7 @@ form.addEventListener('submit', async (e) => {
   const submitBtn = form.querySelector('button[type="submit"]');
   submitBtn.disabled = true;
   note.textContent = 'Enviando...';
+  trackEvent('click_form', { form_id: 'contact-form' });
 
   try {
     const response = await fetch('contact.php', {
@@ -257,6 +279,7 @@ form.addEventListener('submit', async (e) => {
 
       const texto = `Olá! Meu nome é ${nome} e quero agendar uma aula experimental na Alliance City América. Nível: ${nivel}. WhatsApp: ${whatsapp}`;
       const url = `https://wa.me/?text=${encodeURIComponent(texto)}`;
+      trackEvent('click_whatsapp', { link_url: url, source: 'contact-form' });
       window.open(url, '_blank', 'noopener');
     }
   } catch (err) {
