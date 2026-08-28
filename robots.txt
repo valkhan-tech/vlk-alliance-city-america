@@ -1,0 +1,39 @@
+User-agent: *
+Allow: /
+
+# Bloqueia configurações e backend do formulário — nunca devem ser indexados
+Disallow: /.env
+Disallow: /.env.example
+Disallow: /composer.json
+Disallow: /composer.lock
+Disallow: /vendor/
+Disallow: /lib/
+Disallow: /contact.php
+
+Sitemap: https://alliancecityamerica.com.br/sitemap.xml
+
+# Crawlers de IA / assistentes generativos (GEO)
+# Liberados por padrão — o conteúdo do site é público e promocional.
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
