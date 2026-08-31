@@ -104,27 +104,10 @@ mainNav.querySelectorAll('a').forEach(link => {
     items.forEach(item => { item.style.flexBasis = Math.round(cardWidth) + 'px'; });
   }
 
-  function sizeMobileImages() {
+  function resetMobileImages() {
     items.forEach(item => {
       const img = item.querySelector('.timeline-card img');
       if (img) img.style.height = '';
-    });
-    if (items.length < 5) return;
-
-    const itemsEl = scrollEl.querySelector('.timeline-items');
-    const gap = parseFloat(getComputedStyle(itemsEl).rowGap) || 0;
-    const available = scrollEl.clientHeight;
-
-    const firstCard = items[0].querySelector('.timeline-card');
-    const firstImg = firstCard.querySelector('img');
-    const textHeight = firstCard.offsetHeight - firstImg.offsetHeight;
-
-    const totalItemHeight = (available - gap * (VISIBLE_COUNT - 0.5)) / VISIBLE_COUNT;
-    const imgHeight = Math.max(70, Math.round(totalItemHeight - textHeight));
-
-    items.forEach(item => {
-      const img = item.querySelector('.timeline-card img');
-      if (img) img.style.height = imgHeight + 'px';
     });
   }
 
@@ -137,7 +120,7 @@ mainNav.querySelectorAll('a').forEach(link => {
       sizeDesktopCards();
     } else {
       items.forEach(item => { item.style.flexBasis = ''; });
-      sizeMobileImages();
+      resetMobileImages();
     }
   }
 
