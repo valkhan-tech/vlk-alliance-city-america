@@ -481,10 +481,13 @@ a.family-card-link{ display:block; padding: 2rem 1.6rem; margin: -2rem -1.6rem; 
   opacity:.1;
   pointer-events:none;
 }
-.social-proof-inner{ display:grid; grid-template-columns: 1.2fr 1fr; gap: 3rem; align-items:center; }
+.social-proof-inner{ display:grid; grid-template-columns: 1.2fr 1fr; gap: 3rem; align-items:center; min-width:0; }
+.social-copy,
+.social-stats{ min-width:0; }
 .social-copy p{ color: var(--ink-muted); max-width: 42ch; }
-.social-stats{ display:grid; grid-template-columns: repeat(3,1fr); gap:1rem; }
+.social-stats{ display:grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap:1rem; }
 .stat-card{
+  min-width:0;
   background: var(--bg-card); border:1px solid var(--line); border-radius: var(--radius);
   padding: 1.6rem 1rem; text-align:center;
 }
@@ -847,7 +850,7 @@ a.family-card-link{ display:block; padding: 2rem 1.6rem; margin: -2rem -1.6rem; 
     margin-left:0; margin-top: 2rem;
     padding: 2rem;
   }
-  .social-stats{ grid-template-columns: repeat(3,1fr); }
+  .social-stats{ grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .podium-side{ flex-basis: 90px; }
   .podium-side .team-photo span,
   .podium-side h3,
@@ -915,6 +918,20 @@ a.family-card-link{ display:block; padding: 2rem 1.6rem; margin: -2rem -1.6rem; 
 }
 
 @media (max-width: 560px){
+  .social-proof{ padding:4.5rem 0; }
+  .social-proof > .container{
+    width:100%;
+    max-width:100%;
+    padding-inline:24px;
+  }
+  .social-proof-inner{ gap:2.25rem; }
+  .social-copy,
+  .social-copy .section-title,
+  .social-copy p,
+  .social-copy .btn{ max-width:100%; }
+  .social-copy .btn{ overflow-wrap:anywhere; }
+  .social-stats{ grid-template-columns:1fr; }
+
   .training-schedule{ padding:5rem 0; }
   .schedule-table th,
   .schedule-table td{ padding:.6rem .45rem; font-size:.86rem; }
