@@ -9,6 +9,7 @@ function build_lead_email_html(array $lead, string $logoCid): string
     $nome = htmlspecialchars($lead['nome'], ENT_QUOTES, 'UTF-8');
     $whatsapp = htmlspecialchars($lead['whatsapp'], ENT_QUOTES, 'UTF-8');
     $nivel = htmlspecialchars($lead['nivel_label'], ENT_QUOTES, 'UTF-8');
+    $periodo = htmlspecialchars($lead['periodo_label'], ENT_QUOTES, 'UTF-8');
     $data = htmlspecialchars($lead['data'], ENT_QUOTES, 'UTF-8');
 
     return <<<HTML
@@ -52,6 +53,10 @@ function build_lead_email_html(array $lead, string $logoCid): string
                 <tr>
                   <td style="padding:12px 0; border-bottom:1px solid #2a2a2d; color:#b9b6ae; font-size:13px;">Interesse</td>
                   <td style="padding:12px 0; border-bottom:1px solid #2a2a2d; color:#f4f1ea; font-size:15px; font-weight:600;">{$nivel}</td>
+                </tr>
+                <tr>
+                  <td style="padding:12px 0; border-bottom:1px solid #2a2a2d; color:#b9b6ae; font-size:13px;">Melhor período</td>
+                  <td style="padding:12px 0; border-bottom:1px solid #2a2a2d; color:#f4f1ea; font-size:15px; font-weight:600;">{$periodo}</td>
                 </tr>
                 <tr>
                   <td style="padding:12px 0; color:#b9b6ae; font-size:13px;">Recebido em</td>

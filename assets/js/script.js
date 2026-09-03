@@ -159,6 +159,11 @@ mainNav.querySelectorAll('a').forEach(link => {
   const podium = document.getElementById('team-podium');
   if (!podium) return;
 
+  const track = document.getElementById('podium-track');
+  const dotsEl = document.getElementById('podium-dots');
+  const prevButton = document.getElementById('podium-prev');
+  const nextButton = document.getElementById('podium-next');
+
   const professors = [
     { name: 'Alexandre', role: 'Professor · Faixa-preta', photo: 'assets/img/professores/alexandre.jpeg' },
     { name: 'Christian', role: 'Professor · Faixa-preta', photo: 'assets/img/professores/christian.jpeg' },
@@ -166,52 +171,125 @@ mainNav.querySelectorAll('a').forEach(link => {
     { name: 'Wallaf', role: 'Professor · Faixa-marrom', photo: 'assets/img/professores/wallaf%202.jpeg' },
   ];
 
-  const dotsEl = document.getElementById('podium-dots');
-  professors.forEach((_, i) => {
+  const wrap = (i) => (i + professors.length) % professors.length;
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  dotsEl.replaceChildren();
+  professors.forEach((professor, i) => {
     const dot = document.createElement('button');
     dot.type = 'button';
     dot.className = 'podium-dot';
-    dot.setAttribute('aria-label', `Ver professor ${i + 1}`);
+    dot.setAttribute('aria-label', `Ver professor ${professor.name}`);
     dot.addEventListener('click', () => goTo(i));
     dotsEl.appendChild(dot);
   });
   const dots = Array.from(dotsEl.children);
 
-  const slotEls = {
-    prev: podium.querySelector('[data-slot="prev"]'),
-    current: podium.querySelector('[data-slot="current"]'),
-    next: podium.querySelector('[data-slot="next"]'),
-  };
+  const slider = document.createElement('div');
+  slider.className = 'podium-slider no-transition';
+  const carouselBuffer = 2;
+  const carouselIndexes = [
+    ...Array.from({ length: carouselBuffer }, (_, i) => wrap(i - carouselBuffer)),
+    ...professors.map((_, i) => i),
+    ...Array.from({ length: carouselBuffer }, (_, i) => i),
+  ];
 
+  carouselIndexes.forEach((professorIndex) => {
+    const professor = professors[professorIndex];
+    const card = document.createElement('article');
+
+    card.className = 'podium-card';
+    card.dataset.professor = professorIndex;
+    card.innerHTML = `
+      <div class="team-photo"><img src="${professor.photo}" alt="Professor ${professor.name}" draggable="false"></div>
+      <h3>${professor.name}</h3>
+      <p class="team-role">${professor.role}</p>
+    `;
+    card.addEventListener('click', () => goTo(professorIndex));
+    slider.appendChild(card);
+  });
+
+  track.replaceChildren(slider);
+  const cards = Array.from(slider.children);
   let current = 0;
-  const wrap = (i) => (i + professors.length) % professors.length;
+  let position = carouselBuffer;
+  let isAnimating = false;
 
-  function fill(el, prof) {
-    const photo = el.querySelector('.team-photo img');
-    photo.src = prof.photo;
-    photo.alt = `Professor ${prof.name}`;
-    el.querySelector('h3').textContent = prof.name;
-    el.querySelector('.team-role').textContent = prof.role;
-  }
-
-  function render() {
-    fill(slotEls.prev, professors[wrap(current - 1)]);
-    fill(slotEls.current, professors[current]);
-    fill(slotEls.next, professors[wrap(current + 1)]);
+  function updateState() {
+    cards.forEach((card, i) => {
+      const isActive = i === position;
+      card.classList.toggle('is-active', isActive);
+      card.classList.toggle('is-adjacent', Math.abs(i - position) === 1);
+      card.setAttribute('aria-hidden', String(!isActive));
+    });
     dots.forEach((dot, i) => dot.classList.toggle('active', i === current));
   }
 
-  function goTo(i) {
-    current = wrap(i);
-    render();
+  function positionSlider(animate = true) {
+    slider.classList.toggle('no-transition', !animate);
+    const activeCard = cards[position];
+    const offset = (track.clientWidth / 2) - (activeCard.offsetLeft + activeCard.offsetWidth / 2);
+    slider.style.transform = `translate3d(${offset}px, 0, 0)`;
+
+    if (!animate) {
+      slider.getBoundingClientRect();
+      slider.classList.remove('no-transition');
+    }
   }
 
-  document.getElementById('podium-prev').addEventListener('click', () => goTo(current - 1));
-  document.getElementById('podium-next').addEventListener('click', () => goTo(current + 1));
-  slotEls.prev.addEventListener('click', () => goTo(current - 1));
-  slotEls.next.addEventListener('click', () => goTo(current + 1));
+  function finishLoop() {
+    const crossedStart = position === carouselBuffer - 1;
+    const crossedEnd = position === carouselBuffer + professors.length;
 
-  render();
+    if (crossedStart || crossedEnd) {
+      slider.classList.add('no-transition');
+      position = crossedStart
+        ? carouselBuffer + professors.length - 1
+        : carouselBuffer;
+      updateState();
+      positionSlider(false);
+    }
+
+    isAnimating = false;
+  }
+
+  function move(step) {
+    if (isAnimating) return;
+    isAnimating = true;
+    position += step;
+    current = wrap(current + step);
+    updateState();
+    positionSlider(!prefersReducedMotion.matches);
+    if (prefersReducedMotion.matches) finishLoop();
+  }
+
+  function goTo(index) {
+    const target = wrap(index);
+    if (target === current || isAnimating) return;
+
+    if (current === 0 && target === professors.length - 1) position = carouselBuffer - 1;
+    else if (current === professors.length - 1 && target === 0) position = carouselBuffer + professors.length;
+    else position = target + carouselBuffer;
+
+    current = target;
+    isAnimating = true;
+    updateState();
+    positionSlider(!prefersReducedMotion.matches);
+    if (prefersReducedMotion.matches) finishLoop();
+  }
+
+  slider.addEventListener('transitionend', (event) => {
+    if (event.target === slider && event.propertyName === 'transform') finishLoop();
+  });
+  prevButton.addEventListener('click', () => move(-1));
+  nextButton.addEventListener('click', () => move(1));
+  window.addEventListener('resize', () => {
+    finishLoop();
+    positionSlider(false);
+  });
+
+  updateState();
+  positionSlider(false);
 })();
 
 document.querySelectorAll('.family-card-link[data-nivel]').forEach(link => {
@@ -224,6 +302,24 @@ document.querySelectorAll('.family-card-link[data-nivel]').forEach(link => {
 const form = document.getElementById('contact-form');
 const note = document.getElementById('form-note');
 const formLoadedAtField = document.getElementById('form_loaded_at');
+const whatsappField = form.querySelector('input[name="whatsapp"]');
+
+function formatWhatsapp(value) {
+  const digits = value.replace(/\D/g, '').slice(0, 11);
+
+  if (digits.length === 0) return '';
+  if (digits.length <= 2) return `(${digits}`;
+
+  const ddd = digits.slice(0, 2);
+  const firstPart = digits.slice(2, 7);
+  const lastPart = digits.slice(7);
+
+  return `(${ddd}) ${firstPart}${lastPart ? `-${lastPart}` : ''}`;
+}
+
+whatsappField.addEventListener('input', () => {
+  whatsappField.value = formatWhatsapp(whatsappField.value);
+});
 
 // Marca o instante em que o formulário ficou visível, usado no back-end
 // como trava de tempo mínimo de preenchimento (proteção anti-bot).
@@ -237,9 +333,10 @@ form.addEventListener('submit', async (e) => {
   const nome = form.nome.value.trim();
   const whatsapp = form.whatsapp.value.trim();
   const nivel = form.nivel.value;
+  const periodo = form.periodo.options[form.periodo.selectedIndex].text;
 
-  if (nome.length < 2 || whatsapp.replace(/\D/g, '').length < 10) {
-    note.textContent = 'Preencha seu nome e um WhatsApp válido com DDD.';
+  if (nome.length < 2 || whatsapp.replace(/\D/g, '').length !== 11) {
+    note.textContent = 'Preencha seu nome e um WhatsApp válido com DDD e 11 dígitos.';
     return;
   }
 
@@ -261,7 +358,7 @@ form.addEventListener('submit', async (e) => {
       form.reset();
       if (formLoadedAtField) formLoadedAtField.value = Math.floor(Date.now() / 1000);
 
-      const texto = `Olá! Meu nome é ${nome} e quero agendar uma aula experimental na Alliance City América. Nível: ${nivel}. WhatsApp: ${whatsapp}`;
+      const texto = `Olá! Meu nome é ${nome} e quero agendar uma aula experimental na Alliance City América. Nível: ${nivel}. Período de preferência: ${periodo}. WhatsApp: ${whatsapp}`;
       const url = `https://wa.me/?text=${encodeURIComponent(texto)}`;
       trackEvent('click_whatsapp', { link_url: url, source: 'contact-form' });
       window.open(url, '_blank', 'noopener');

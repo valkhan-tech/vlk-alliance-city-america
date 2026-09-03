@@ -50,12 +50,19 @@ if ($loadedAt <= 0 || ($now - $loadedAt) < $minSeconds) {
 $nome = trim((string) ($_POST['nome'] ?? ''));
 $whatsapp = trim((string) ($_POST['whatsapp'] ?? ''));
 $nivel = trim((string) ($_POST['nivel'] ?? ''));
+$periodo = trim((string) ($_POST['periodo'] ?? ''));
 
 $niveis = [
     'iniciante' => 'Nunca treinei',
     'intermediario' => 'Já treinei antes',
     'crianca' => 'É para meu filho(a)',
     'particular' => 'Aula particular',
+];
+
+$periodos = [
+    'manha' => 'Manhã',
+    'tarde' => 'Tarde',
+    'noite' => 'Noite',
 ];
 
 $erros = [];
@@ -65,12 +72,16 @@ if (mb_strlen($nome) < 2 || mb_strlen($nome) > 100) {
 }
 
 $whatsappDigits = preg_replace('/\D+/', '', $whatsapp);
-if (strlen($whatsappDigits) < 10 || strlen($whatsappDigits) > 13) {
-    $erros[] = 'Informe um WhatsApp válido com DDD.';
+if (strlen($whatsappDigits) !== 11) {
+    $erros[] = 'Informe um WhatsApp válido com DDD e 11 dígitos.';
 }
 
 if (!array_key_exists($nivel, $niveis)) {
     $erros[] = 'Selecione uma opção de interesse válida.';
+}
+
+if (!array_key_exists($periodo, $periodos)) {
+    $erros[] = 'Selecione um período de preferência válido.';
 }
 
 if ($erros) {
@@ -83,6 +94,7 @@ $lead = [
     'whatsapp' => $whatsapp,
     'whatsapp_digits' => $whatsappDigits,
     'nivel_label' => $niveis[$nivel],
+    'periodo_label' => $periodos[$periodo],
     'data' => date('d/m/Y H:i'),
 ];
 
@@ -126,10 +138,11 @@ try {
     $mail->Subject = (string) env('MAIL_SUBJECT', 'Novo lead pelo site');
     $mail->Body = build_lead_email_html($lead, $logoCid);
     $mail->AltBody = sprintf(
-        "Novo lead pelo site\nNome: %s\nWhatsApp: %s\nInteresse: %s\nRecebido em: %s",
+        "Novo lead pelo site\nNome: %s\nWhatsApp: %s\nInteresse: %s\nPeríodo de preferência: %s\nRecebido em: %s",
         $lead['nome'],
         $lead['whatsapp'],
         $lead['nivel_label'],
+        $lead['periodo_label'],
         $lead['data']
     );
 
