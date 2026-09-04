@@ -335,6 +335,15 @@ a.family-card-link{ display:block; padding: 2rem 1.6rem; margin: -2rem -1.6rem; 
 
 .link-more{ display:inline-block; margin-top:1rem; color: var(--gold); font-weight:600; font-size:.9rem; }
 .link-more:hover{ text-decoration: underline; }
+.program-details{
+  padding:0;
+  border:0;
+  background:none;
+  font-family:inherit;
+  line-height:inherit;
+  cursor:pointer;
+}
+.program-details:focus-visible{ outline:2px solid var(--gold); outline-offset:5px; border-radius:2px; }
 
 /* Timeline */
 .timeline{ position:relative; margin-top: 0; }
@@ -420,6 +429,99 @@ a.family-card-link{ display:block; padding: 2rem 1.6rem; margin: -2rem -1.6rem; 
 }
 .timeline-card h3{ font-family: var(--font-display); font-weight:400; font-size:1.6rem; margin:.1rem 0 .6rem; }
 .timeline-card p{ color: var(--ink-muted); font-size:.92rem; }
+
+/* Program details modal */
+body.modal-open{ overflow:hidden; }
+.program-modal{
+  width:min(760px, calc(100% - 32px));
+  max-width:none;
+  max-height:min(90vh, 820px);
+  padding:0;
+  border:1px solid rgba(255,201,57,.3);
+  border-radius:18px;
+  background:var(--bg-card);
+  color:var(--ink);
+  box-shadow:0 28px 90px rgba(0,0,0,.68);
+  overflow:hidden;
+}
+.program-modal::backdrop{
+  background:rgba(3,3,4,.82);
+  backdrop-filter:blur(7px);
+}
+.program-modal[open]{ animation:modal-in .28s cubic-bezier(.2,.8,.2,1); }
+.program-modal-shell{ position:relative; max-height:min(90vh, 820px); overflow-y:auto; }
+.program-modal-accent{ height:4px; background:linear-gradient(90deg, var(--gold), #fff0a3 48%, var(--gold)); }
+.program-modal-content{ padding:clamp(2rem, 5vw, 3.5rem); }
+.program-modal-close{
+  position:absolute;
+  z-index:2;
+  top:18px;
+  right:18px;
+  width:42px;
+  height:42px;
+  display:grid;
+  place-items:center;
+  border:1px solid var(--line);
+  border-radius:50%;
+  background:rgba(17,17,19,.86);
+  color:var(--ink-muted);
+  cursor:pointer;
+  transition:border-color .2s ease, color .2s ease, transform .2s ease;
+}
+.program-modal-close:hover{ border-color:var(--gold); color:var(--gold); transform:rotate(4deg); }
+.program-modal-close:focus-visible{ outline:2px solid var(--gold); outline-offset:3px; }
+.program-modal h2{
+  margin:.25rem 3rem .8rem 0;
+  font-family:var(--font-display);
+  font-size:clamp(2.4rem, 7vw, 4.25rem);
+  font-weight:400;
+  line-height:.95;
+}
+.program-modal-intro{ max-width:650px; margin:0; color:var(--ink-muted); font-size:1.02rem; }
+.program-modal-grid{ display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:1rem; margin:2rem 0; }
+.program-modal-grid > div{ padding:1.2rem; border:1px solid var(--line); border-radius:12px; background:rgba(255,255,255,.025); }
+.program-modal-grid strong{ display:block; margin-bottom:.3rem; color:var(--gold); font-size:.82rem; letter-spacing:.08em; text-transform:uppercase; }
+.program-modal-grid p{ margin:0; color:var(--ink-muted); font-size:.9rem; line-height:1.55; }
+.belt-journey{ padding:1.3rem; border-radius:14px; background:#0b0b0c; border:1px solid rgba(255,255,255,.07); }
+.belt-journey-title{ margin:0 0 1rem; color:var(--ink); font-size:.8rem; font-weight:600; letter-spacing:.12em; text-transform:uppercase; text-align:center; }
+.belt-row{ display:flex; align-items:flex-start; justify-content:center; gap:clamp(.65rem, 3vw, 1.5rem); }
+.belt{ width:min(112px, 20%); color:var(--ink-muted); text-align:center; }
+.program-svg-defs{ position:absolute; width:0; height:0; overflow:hidden; }
+.belt-svg{
+  display:block;
+  width:100%;
+  height:auto;
+  margin-bottom:.35rem;
+  filter:drop-shadow(0 5px 5px rgba(0,0,0,.38));
+}
+.belt-svg-shadow{ fill:#000; opacity:.42; }
+.belt-svg-fabric{ fill:var(--belt); stroke:rgba(255,255,255,.3); stroke-width:1; }
+.belt-svg-highlight{ fill:#fff; opacity:.12; }
+.belt-svg-bar{ fill:var(--bar, #111); }
+.belt-svg-seam{ fill:none; stroke:rgba(255,255,255,.24); stroke-width:1; }
+.belt-svg-stripes path{ fill:none; stroke:#f5f5f0; stroke-width:3; }
+.belt small{ display:block; font-size:.72rem; line-height:1.25; }
+.belt-featured .belt-svg{ filter:drop-shadow(0 0 2px var(--gold)) drop-shadow(0 7px 6px rgba(0,0,0,.55)); }
+.belt-row-single .belt{ width:min(260px, 80%); }
+.belt-arrow{ align-self:center; margin-top:2px; color:var(--gold); font-size:1.5rem; }
+.nogi-journey{ text-align:center; color:var(--ink-muted); }
+.nogi-icon{ width:145px; margin:0 auto; color:#5a5a60; }
+.program-modal-action{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:1rem;
+  padding:1.1rem clamp(2rem, 5vw, 3.5rem);
+  border-top:1px solid var(--line);
+  background:rgba(0,0,0,.18);
+}
+.program-modal-action span{ color:var(--ink-muted); font-size:.88rem; }
+.program-modal-action .btn{ flex-shrink:0; padding:.72rem 1.15rem; font-size:.78rem; }
+@keyframes modal-in{
+  from{ opacity:0; transform:translateY(18px) scale(.97); }
+  to{ opacity:1; transform:translateY(0) scale(1); }
+}
+@media (prefers-reduced-motion:reduce){ .program-modal[open]{ animation:none; } }
 
 .valkhan-target { color: #ffffff; text-decoration: none; transition: color 0.3s ease, text-decoration 0.3s ease; }
 .valkhan-target:hover { color: var(--gold); text-decoration: underline; }
@@ -949,6 +1051,20 @@ a.family-card-link{ display:block; padding: 2rem 1.6rem; margin: -2rem -1.6rem; 
     overflow-x:clip;
     overscroll-behavior-x:none;
   }
+
+  .program-modal{ width:calc(100% - 20px); max-height:calc(100dvh - 20px); border-radius:14px; }
+  .program-modal-shell{ max-height:calc(100dvh - 20px); }
+  .program-modal-content{ padding:2.7rem 1.15rem 1.25rem; }
+  .program-modal-action{ align-items:stretch; flex-direction:column; padding:1rem 1.15rem 1.15rem; text-align:center; }
+  .program-modal-action .btn{ text-align:center; }
+  .program-modal-close{ top:12px; right:12px; width:38px; height:38px; }
+  .program-modal h2{ margin-right:2.5rem; }
+  .program-modal-grid{ grid-template-columns:1fr; gap:.7rem; margin:1.4rem 0; }
+  .program-modal-grid > div{ padding:1rem; }
+  .belt-journey{ padding:1rem .65rem; }
+  .belt-row{ gap:.5rem; }
+  .belt{ width:min(92px, 20%); }
+  .belt small{ font-size:.62rem; }
 
   main,
   .training-schedule{

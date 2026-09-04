@@ -155,6 +155,43 @@ mainNav.querySelectorAll('a').forEach(link => {
   }
 })();
 
+(function initProgramModal() {
+  const modal = document.getElementById('program-modal');
+  const content = document.getElementById('program-modal-content');
+  if (!modal || !content) return;
+
+  const closeButton = modal.querySelector('.program-modal-close');
+  let opener = null;
+
+  document.querySelectorAll('.program-details[data-program]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const template = document.getElementById(`program-${button.dataset.program}`);
+      if (!template) return;
+
+      opener = button;
+      content.replaceChildren(template.content.cloneNode(true));
+      modal.showModal();
+      document.body.classList.add('modal-open');
+      closeButton.focus();
+      trackEvent('open_program_details', { program: button.dataset.program });
+    });
+  });
+
+  function closeModal() {
+    if (modal.open) modal.close();
+  }
+
+  closeButton.addEventListener('click', closeModal);
+  modal.querySelector('.program-modal-cta').addEventListener('click', closeModal);
+  modal.addEventListener('click', (event) => {
+    if (event.target === modal) closeModal();
+  });
+  modal.addEventListener('close', () => {
+    document.body.classList.remove('modal-open');
+    if (opener) opener.focus();
+  });
+})();
+
 (function initTeamPodium() {
   const podium = document.getElementById('team-podium');
   if (!podium) return;

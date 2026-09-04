@@ -257,7 +257,7 @@
               <p class="eyebrow">Jiu Jitsu para</p>
               <h3>Crianças e adolescentes</h3>
               <p>Ambiente seguro que trabalha concentração, autoestima e disciplina.</p>
-              <a href="#contato" class="link-more">Mais detalhes →</a>
+              <button type="button" class="link-more program-details" data-program="kids" aria-haspopup="dialog">Mais detalhes <span aria-hidden="true">→</span></button>
             </div>
           </article>
 
@@ -268,7 +268,7 @@
               <p class="eyebrow">Jiu Jitsu para</p>
               <h3>Iniciantes</h3>
               <p>Base sólida para você aproveitar toda aula antes de avançar para os próximos módulos.</p>
-              <a href="#contato" class="link-more">Mais detalhes →</a>
+              <button type="button" class="link-more program-details" data-program="beginner" aria-haspopup="dialog">Mais detalhes <span aria-hidden="true">→</span></button>
             </div>
           </article>
 
@@ -279,7 +279,7 @@
               <p class="eyebrow">Jiu Jitsu</p>
               <h3>Intermediário</h3>
               <p>Novas técnicas e aperfeiçoamento de movimentos para progredir com consistência.</p>
-              <a href="#contato" class="link-more">Mais detalhes →</a>
+              <button type="button" class="link-more program-details" data-program="intermediate" aria-haspopup="dialog">Mais detalhes <span aria-hidden="true">→</span></button>
             </div>
           </article>
 
@@ -290,7 +290,7 @@
               <p class="eyebrow">Jiu Jitsu</p>
               <h3>Avançado</h3>
               <p>Múltiplas combinações de movimentos e posições com as técnicas mais avançadas do jogo.</p>
-              <a href="#contato" class="link-more">Mais detalhes →</a>
+              <button type="button" class="link-more program-details" data-program="advanced" aria-haspopup="dialog">Mais detalhes <span aria-hidden="true">→</span></button>
             </div>
           </article>
 
@@ -300,8 +300,8 @@
               <img src="assets/img/competicao2.jpg" alt="Jiu Jitsu Competição">
               <p class="eyebrow">Jiu Jitsu para</p>
               <h3>Competição</h3>
-              <p>Preparo para competir em alto nível, da faixa azul até a faixa preta.</p>
-              <a href="#contato" class="link-more">Mais detalhes →</a>
+              <p>Preparo para competir em alto nível, da faixa branca até a faixa preta.</p>
+              <button type="button" class="link-more program-details" data-program="competition" aria-haspopup="dialog">Mais detalhes <span aria-hidden="true">→</span></button>
             </div>
           </article>
 
@@ -312,7 +312,7 @@
               <p class="eyebrow">Jiu Jitsu</p>
               <h3>No Gi</h3>
               <p>Condicionamento físico e defesa pessoal, sem a necessidade do kimono.</p>
-              <a href="#contato" class="link-more">Mais detalhes →</a>
+              <button type="button" class="link-more program-details" data-program="nogi" aria-haspopup="dialog">Mais detalhes <span aria-hidden="true">→</span></button>
             </div>
           </article>
 
@@ -323,7 +323,7 @@
               <p class="eyebrow">Aulas</p>
               <h3>Particulares</h3>
               <p>Serviço VIP com aulas montadas especialmente para o seu objetivo.</p>
-              <a href="#contato" class="link-more">Mais detalhes →</a>
+              <button type="button" class="link-more program-details" data-program="private" aria-haspopup="dialog">Mais detalhes <span aria-hidden="true">→</span></button>
             </div>
           </article>
 
@@ -332,6 +332,157 @@
       </div>
     </div>
   </section>
+
+  <dialog class="program-modal" id="program-modal" aria-labelledby="program-modal-title">
+    <div class="program-modal-shell">
+      <button type="button" class="program-modal-close" aria-label="Fechar detalhes do programa">
+        <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 2l14 14M16 2L2 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+      <div class="program-modal-accent" aria-hidden="true"></div>
+      <div class="program-modal-content" id="program-modal-content"></div>
+      <div class="program-modal-action">
+        <span>Quer sentir isso no tatame?</span>
+        <a href="#contato" class="btn btn-primary program-modal-cta">Agendar aula grátis</a>
+      </div>
+    </div>
+  </dialog>
+
+  <svg class="program-svg-defs" aria-hidden="true" focusable="false">
+    <defs>
+      <symbol id="program-belt-shape" viewBox="0 0 140 42">
+        <path class="belt-svg-shadow" d="M7 9h126a4 4 0 0 1 4 4v19a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V13a4 4 0 0 1 4-4Z"/>
+        <path class="belt-svg-fabric" d="M6 6h128a4 4 0 0 1 4 4v19a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V10a4 4 0 0 1 4-4Z"/>
+        <path class="belt-svg-highlight" d="M7 8h126a3 3 0 0 1 3 3v2H4v-2a3 3 0 0 1 3-3Z"/>
+        <path class="belt-svg-bar" d="M99 6h34v27H99z"/>
+        <path class="belt-svg-seam" d="M99 7v25M133 7v25"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <template id="program-kids">
+    <p class="eyebrow">Programa 01 · Formação desde cedo</p>
+    <h2 id="program-modal-title">Crianças e adolescentes</h2>
+    <p class="program-modal-intro">Muito mais do que aprender golpes: aqui os pequenos desenvolvem confiança, disciplina e respeito enquanto se divertem e fazem amigos.</p>
+    <div class="program-modal-grid">
+      <div><strong>Aprendizado com propósito</strong><p>Aulas dinâmicas, técnicas adaptadas e desafios adequados a cada fase do desenvolvimento.</p></div>
+      <div><strong>Evolução visível</strong><p>O progresso é acompanhado de perto, valorizando presença, comportamento e domínio técnico.</p></div>
+    </div>
+    <div class="belt-journey" aria-label="Jornada de faixas infantil: branca, cinza, amarela, laranja e verde">
+      <p class="belt-journey-title">Uma jornada cheia de conquistas</p>
+      <div class="belt-row">
+        <span class="belt" style="--belt:#f2f2ed"><svg class="belt-svg" viewBox="0 0 140 42" aria-hidden="true"><use href="#program-belt-shape"/></svg><small>Branca</small></span>
+        <span class="belt" style="--belt:#858585"><svg class="belt-svg" viewBox="0 0 140 42" aria-hidden="true"><use href="#program-belt-shape"/></svg><small>Cinza</small></span>
+        <span class="belt" style="--belt:#f2cc35"><svg class="belt-svg" viewBox="0 0 140 42" aria-hidden="true"><use href="#program-belt-shape"/></svg><small>Amarela</small></span>
+        <span class="belt" style="--belt:#e47a27"><svg class="belt-svg" viewBox="0 0 140 42" aria-hidden="true"><use href="#program-belt-shape"/></svg><small>Laranja</small></span>
+        <span class="belt" style="--belt:#32854d"><svg class="belt-svg" viewBox="0 0 140 42" aria-hidden="true"><use href="#program-belt-shape"/></svg><small>Verde</small></span>
+      </div>
+    </div>
+  </template>
+
+  <template id="program-beginner">
+    <p class="eyebrow">Programa 02 · Seu ponto de partida</p>
+    <h2 id="program-modal-title">Iniciantes</h2>
+    <p class="program-modal-intro">Você não precisa estar em forma nem ter experiência. Este é o lugar para aprender os fundamentos com segurança e construir uma base sólida desde a primeira aula.</p>
+    <div class="program-modal-grid">
+      <div><strong>Comece do zero</strong><p>Postura, movimentação, defesa pessoal e posições essenciais explicadas passo a passo.</p></div>
+      <div><strong>Seu primeiro grau</strong><p>A cada ciclo de aproximadamente 30 aulas, sua evolução pode ser avaliada para um novo grau, sempre respeitando seu ritmo e os critérios dos professores.</p></div>
+    </div>
+    <div class="belt-journey" aria-label="Faixa branca com quatro graus">
+      <p class="belt-journey-title">O começo de uma grande história</p>
+      <div class="belt-row belt-row-single">
+        <span class="belt belt-featured" style="--belt:#f2f2ed"><svg class="belt-svg" viewBox="0 0 140 42" aria-hidden="true"><use href="#program-belt-shape"/><g class="belt-svg-stripes"><path d="M105 10v19M112 10v19M119 10v19M126 10v19"/></g></svg><small>Faixa branca · 4 graus</small></span>
+      </div>
+    </div>
+  </template>
+
+  <template id="program-intermediate">
+    <p class="eyebrow">Programa 03 · Expanda seu jogo</p>
+    <h2 id="program-modal-title">Intermediário</h2>
+    <p class="program-modal-intro">Com os fundamentos bem construídos, é hora de conectar posições, desenvolver estratégia e transformar conhecimento em um jogo que tenha a sua identidade.</p>
+    <div class="program-modal-grid">
+      <div><strong>Mais repertório</strong><p>Variações, raspagens, passagens e finalizações para responder melhor a diferentes situações.</p></div>
+      <div><strong>Mais consciência</strong><p>Você aprende a encadear movimentos, tomar decisões e treinar com consistência e controle.</p></div>
+    </div>
+    <div class="belt-journey" aria-label="Progressão da faixa branca para a azul">
+      <p class="belt-journey-title">Da base para um jogo completo</p>
+      <div class="belt-row">
+        <span class="belt" style="--belt:#f2f2ed"><svg class="belt-svg" viewBox="0 0 140 42" aria-hidden="true"><use href="#program-belt-shape"/></svg><small>Branca</small></span>
+        <span class="belt-arrow" aria-hidden="true">→</span>
+        <span class="belt belt-featured" style="--belt:#2457a7"><svg class="belt-svg" viewBox="0 0 140 42" aria-hidden="true"><use href="#program-belt-shape"/><g class="belt-svg-stripes"><path d="M105 10v19M112 10v19M119 10v19M126 10v19"/></g></svg><small>Faixa azul</small></span>
+      </div>
+    </div>
+  </template>
+
+  <template id="program-advanced">
+    <p class="eyebrow">Programa 04 · Alta performance técnica</p>
+    <h2 id="program-modal-title">Avançado</h2>
+    <p class="program-modal-intro">Um espaço para lapidar detalhes, testar combinações complexas e elevar a leitura de luta. Aqui, técnica, estratégia e intensidade caminham juntas.</p>
+    <div class="program-modal-grid">
+      <div><strong>Refinamento</strong><p>Ajustes de tempo, pressão e precisão que fazem diferença contra adversários experientes.</p></div>
+      <div><strong>Jogo autoral</strong><p>Desenvolvimento de sequências e soluções alinhadas ao seu estilo, objetivos e biotipo.</p></div>
+    </div>
+    <div class="belt-journey" aria-label="Faixas avançadas: roxa, marrom e preta">
+      <p class="belt-journey-title">Experiência que se transforma em excelência</p>
+      <div class="belt-row">
+        <span class="belt" style="--belt:#673a91"><svg class="belt-svg" viewBox="0 0 140 42" aria-hidden="true"><use href="#program-belt-shape"/></svg><small>Roxa</small></span>
+        <span class="belt" style="--belt:#704126"><svg class="belt-svg" viewBox="0 0 140 42" aria-hidden="true"><use href="#program-belt-shape"/></svg><small>Marrom</small></span>
+        <span class="belt belt-featured" style="--belt:#151515;--bar:#9f1f27"><svg class="belt-svg" viewBox="0 0 140 42" aria-hidden="true"><use href="#program-belt-shape"/></svg><small>Preta</small></span>
+      </div>
+    </div>
+  </template>
+
+  <template id="program-competition">
+    <p class="eyebrow">Programa 05 · Mentalidade de campeão</p>
+    <h2 id="program-modal-title">Competição</h2>
+    <p class="program-modal-intro">Treinamento direcionado para quem quer colocar o jogo à prova, competir com confiança e representar a Alliance dentro e fora dos tatames.</p>
+    <div class="program-modal-grid">
+      <div><strong>Preparação completa</strong><p>Estratégia de pontos, ritmo de luta, situações específicas e rounds com intensidade competitiva.</p></div>
+      <div><strong>Time ao seu lado</strong><p>Metas claras, orientação dos professores e uma equipe que evolui e compete unida.</p></div>
+    </div>
+    <div class="belt-journey" aria-label="Competição para todas as faixas: branca, azul, roxa, marrom e preta">
+      <p class="belt-journey-title">Do primeiro campeonato ao pódio</p>
+      <div class="belt-row">
+        <span class="belt" style="--belt:#f2f2ed"><svg class="belt-svg" viewBox="0 0 140 42" aria-hidden="true"><use href="#program-belt-shape"/></svg><small>Branca</small></span>
+        <span class="belt" style="--belt:#2457a7"><svg class="belt-svg" viewBox="0 0 140 42" aria-hidden="true"><use href="#program-belt-shape"/></svg><small>Azul</small></span>
+        <span class="belt" style="--belt:#673a91"><svg class="belt-svg" viewBox="0 0 140 42" aria-hidden="true"><use href="#program-belt-shape"/></svg><small>Roxa</small></span>
+        <span class="belt" style="--belt:#704126"><svg class="belt-svg" viewBox="0 0 140 42" aria-hidden="true"><use href="#program-belt-shape"/></svg><small>Marrom</small></span>
+        <span class="belt" style="--belt:#151515;--bar:#9f1f27"><svg class="belt-svg" viewBox="0 0 140 42" aria-hidden="true"><use href="#program-belt-shape"/></svg><small>Preta</small></span>
+      </div>
+    </div>
+  </template>
+
+  <template id="program-nogi">
+    <p class="eyebrow">Programa 06 · Jiu Jitsu sem kimono</p>
+    <h2 id="program-modal-title">No Gi</h2>
+    <p class="program-modal-intro">Uma modalidade rápida e dinâmica, praticada com rashguard e shorts. Ideal para ampliar seu repertório, condicionamento e capacidade de adaptação.</p>
+    <div class="program-modal-grid">
+      <div><strong>Movimento e controle</strong><p>Quedas, transições, controles e finalizações adaptados à ausência das pegadas no kimono.</p></div>
+      <div><strong>Para todos os jogos</strong><p>Complementa o treino tradicional e desenvolve velocidade, precisão e consciência corporal.</p></div>
+    </div>
+    <div class="belt-journey nogi-journey" aria-label="Desenvolvimento contínuo no No Gi">
+      <p class="belt-journey-title">Mesma essência. Uma nova dinâmica.</p>
+      <svg class="nogi-icon" viewBox="0 0 180 78" role="img" aria-label="Rashguard Alliance estilizada"><path d="M55 8 29 20 8 47l20 14 16-18v29h92V43l16 18 20-14-21-27-26-12-15 14H70L55 8Z" fill="#171719" stroke="currentColor" stroke-width="2"/><path d="m55 8 15 14h40l15-14M44 43 29 20m107 23 15-23" fill="none" stroke="#ffc939" stroke-width="3"/><path d="M82 31h16l8 14-16 19-16-19 8-14Z" fill="none" stroke="#ffc939" stroke-width="3"/></svg>
+    </div>
+  </template>
+
+  <template id="program-private">
+    <p class="eyebrow">Programa 07 · Atenção exclusiva</p>
+    <h2 id="program-modal-title">Aulas particulares</h2>
+    <p class="program-modal-intro">Seu objetivo define a aula. O professor cria um plano personalizado para acelerar o aprendizado, corrigir detalhes e aproveitar cada minuto no tatame.</p>
+    <div class="program-modal-grid">
+      <div><strong>100% personalizado</strong><p>Conteúdo, ritmo e intensidade pensados para sua experiência e suas necessidades.</p></div>
+      <div><strong>Evolução focada</strong><p>Ideal para começar com confiança, destravar uma técnica ou preparar-se para desafios específicos.</p></div>
+    </div>
+    <div class="belt-journey" aria-label="Aulas particulares disponíveis para todos os níveis">
+      <p class="belt-journey-title">Do primeiro passo à faixa preta</p>
+      <div class="belt-row">
+        <span class="belt" style="--belt:#f2f2ed"><svg class="belt-svg" viewBox="0 0 140 42" aria-hidden="true"><use href="#program-belt-shape"/></svg><small>Início</small></span>
+        <span class="belt" style="--belt:#2457a7"><svg class="belt-svg" viewBox="0 0 140 42" aria-hidden="true"><use href="#program-belt-shape"/></svg><small>Base</small></span>
+        <span class="belt" style="--belt:#673a91"><svg class="belt-svg" viewBox="0 0 140 42" aria-hidden="true"><use href="#program-belt-shape"/></svg><small>Técnica</small></span>
+        <span class="belt" style="--belt:#151515;--bar:#9f1f27"><svg class="belt-svg" viewBox="0 0 140 42" aria-hidden="true"><use href="#program-belt-shape"/></svg><small>Excelência</small></span>
+      </div>
+    </div>
+  </template>
 
   <!-- PROVA SOCIAL / INSTAGRAM -->
   <section class="social-proof">
