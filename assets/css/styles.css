@@ -227,6 +227,82 @@ main{ width:100%; max-width:100%; overflow-x:hidden; overflow-x:clip; }
 }
 .link-secondary:hover{ color: var(--gold); border-color: var(--gold); }
 
+/* Trial class */
+.trial-class{
+  padding: 4.5rem 0;
+  background: var(--bg);
+  scroll-margin-top: 76px;
+}
+.trial-class-card{
+  display:grid;
+  grid-template-columns: minmax(0, 1fr) minmax(360px, .9fr);
+  min-height: 360px;
+  overflow:hidden;
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.trial-class-copy{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:flex-start;
+  padding: clamp(2rem, 5vw, 4.5rem);
+}
+.trial-class-copy .section-title{
+  max-width: none;
+  font-size: clamp(2rem, 2.8vw, 2.8rem);
+}
+.trial-class-copy > p:not(.eyebrow){
+  max-width: 55ch;
+  margin: 0 0 1.25rem;
+  color: var(--ink-muted);
+}
+.trial-class-list{
+  display:grid;
+  gap: .85rem;
+  margin: 0 0 1.25rem;
+  padding: 0;
+  list-style:none;
+  counter-reset: trial-item;
+}
+.trial-class-list li{
+  position:relative;
+  padding-left: 2.5rem;
+  counter-increment: trial-item;
+}
+.trial-class-list li::before{
+  content: counter(trial-item, decimal-leading-zero);
+  position:absolute;
+  top:0;
+  left:0;
+  color: var(--gold);
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  line-height:1.2;
+}
+.trial-class-list strong,
+.trial-class-list span{ display:block; }
+.trial-class-list strong{
+  margin-bottom:.1rem;
+  color: var(--ink);
+  font-size:.95rem;
+}
+.trial-class-list span{
+  max-width: 58ch;
+  color: var(--ink-muted);
+  font-size:.9rem;
+  line-height:1.5;
+}
+.trial-class-copy .trial-class-closing{ margin-bottom:1.75rem; }
+.trial-class-image{ min-height: 360px; }
+.trial-class-image img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+}
+
 /* Family */
 .family{ padding: 6rem 0; background: var(--bg); }
 .family-grid{
@@ -943,9 +1019,10 @@ body.modal-open{ overflow:hidden; }
   .nav-toggle{ display:flex; }
 
   .philosophy-inner,
-  .social-proof-inner, .contact-inner{
+  .social-proof-inner, .contact-inner, .trial-class-card{
     grid-template-columns: 1fr;
   }
+  .trial-class-image{ min-height: 300px; }
   .philosophy-image::before{ top:14px; left:14px; right:-14px; bottom:-14px; }
   .philosophy-image img{ clip-path:none; transform:none; }
   .philosophy-text-card{
@@ -1020,6 +1097,10 @@ body.modal-open{ overflow:hidden; }
 }
 
 @media (max-width: 560px){
+  .trial-class{ padding: 3.5rem 0; }
+  .trial-class-copy{ padding: 2rem 1.5rem 2.25rem; }
+  .trial-class-image{ min-height: 240px; }
+
   .social-proof{ padding:4.5rem 0; }
   .social-proof > .container{
     width:100%;
