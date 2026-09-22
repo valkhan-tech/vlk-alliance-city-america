@@ -57,6 +57,7 @@ $niveis = [
     'intermediario' => 'Já treinei antes',
     'crianca' => 'É para meu filho(a)',
     'particular' => 'Aula particular',
+    'coworking' => 'Agendar espaço de coworking',
 ];
 
 $periodos = [

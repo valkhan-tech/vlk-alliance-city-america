@@ -329,7 +329,7 @@ mainNav.querySelectorAll('a').forEach(link => {
   positionSlider(false);
 })();
 
-document.querySelectorAll('.family-card-link[data-nivel]').forEach(link => {
+document.querySelectorAll('[data-nivel]').forEach(link => {
   link.addEventListener('click', () => {
     const select = document.querySelector('#contact-form select[name="nivel"]');
     if (select) select.value = link.dataset.nivel;
@@ -395,7 +395,9 @@ form.addEventListener('submit', async (e) => {
       form.reset();
       if (formLoadedAtField) formLoadedAtField.value = Math.floor(Date.now() / 1000);
 
-      const texto = `Olá! Meu nome é ${nome} e quero agendar uma aula experimental na Alliance City América. Nível: ${nivel}. Período de preferência: ${periodo}. WhatsApp: ${whatsapp}`;
+      const texto = nivel === 'coworking'
+        ? `Olá! Meu nome é ${nome} e quero agendar o espaço de coworking da Alliance City América. Período de preferência: ${periodo}. WhatsApp: ${whatsapp}`
+        : `Olá! Meu nome é ${nome} e quero agendar uma aula experimental na Alliance City América. Nível: ${nivel}. Período de preferência: ${periodo}. WhatsApp: ${whatsapp}`;
       const url = `https://wa.me/?text=${encodeURIComponent(texto)}`;
       trackEvent('click_whatsapp', { link_url: url, source: 'contact-form' });
       window.open(url, '_blank', 'noopener');
