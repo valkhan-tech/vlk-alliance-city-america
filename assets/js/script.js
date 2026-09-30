@@ -32,6 +32,66 @@ if (heroCarousel) {
   }, 6000);
 }
 
+// Vídeo de apresentação: prévia muda em loop; o botão reinicia com som e controles.
+(function initHeroVideo() {
+  const video = document.getElementById('hero-video');
+  const soundBtn = document.getElementById('hero-video-sound');
+  if (!video || !soundBtn) return;
+
+  const label = soundBtn.querySelector('.hero-video-sound-label');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let withSound = false;
+
+  const safePlay = () => {
+    const p = video.play();
+    if (p && typeof p.catch === 'function') p.catch(() => {});
+  };
+
+  const setPreview = () => {
+    withSound = false;
+    video.muted = true;
+    video.loop = true;
+    video.removeAttribute('controls');
+    soundBtn.setAttribute('aria-pressed', 'false');
+    soundBtn.hidden = false;
+    label.textContent = 'Ouvir com som';
+  };
+
+  const setWithSound = () => {
+    withSound = true;
+    video.muted = false;
+    video.loop = false;
+    video.controls = true;
+    video.currentTime = 0;
+    soundBtn.hidden = true;
+    soundBtn.setAttribute('aria-pressed', 'true');
+    trackEvent('play_hero_video', { with_sound: true });
+    safePlay();
+  };
+
+  soundBtn.addEventListener('click', setWithSound);
+  video.addEventListener('click', () => { if (!withSound) setWithSound(); });
+  video.addEventListener('ended', () => { setPreview(); video.currentTime = 0; safePlay(); });
+
+  if (reducedMotion) {
+    video.removeAttribute('autoplay');
+    video.pause();
+  }
+
+  // Economiza banda e bateria: pausa a prévia quando o vídeo sai da tela.
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          if (!reducedMotion || withSound) safePlay();
+        } else {
+          video.pause();
+        }
+      });
+    }, { threshold: 0.25 }).observe(video);
+  }
+})();
+
 const navToggle = document.getElementById('nav-toggle');
 const mainNav = document.getElementById('main-nav');
 navToggle.addEventListener('click', () => {
