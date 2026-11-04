@@ -118,6 +118,12 @@ main{ width:100%; max-width:100%; overflow-x:hidden; overflow-x:clip; }
   transition: opacity 2s ease;
 }
 .hero-bg-slide.active{ opacity: 1; }
+/* Foto vertical do espaço: no desktop (recorte paisagem) centraliza na faixa do balcão/vitrine;
+   no mobile (hero alto) mostra a imagem vertical inteira centralizada. */
+.hero-bg-slide--espaco{ background-position: center 58%; }
+@media (max-width: 900px){
+  .hero-bg-slide--espaco{ background-position: center center; }
+}
 
 .hero-overlay{
   position:absolute; inset:0;

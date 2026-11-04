@@ -22,7 +22,7 @@ document.addEventListener('click', (e) => {
 });
 
 const heroCarousel = document.getElementById('hero-carousel');
-if (heroCarousel) {
+if (heroCarousel && heroCarousel.querySelectorAll('.hero-bg-slide').length > 1) {
   const slides = heroCarousel.querySelectorAll('.hero-bg-slide');
   let current = 0;
   setInterval(() => {
