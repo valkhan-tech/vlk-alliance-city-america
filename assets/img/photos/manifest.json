@@ -1,0 +1,277 @@
+{
+  "recepcao-alliance-city-america": {
+    "width": 2000,
+    "height": 1334,
+    "widths": [
+      480,
+      960,
+      1600
+    ],
+    "source": "referencia/ESPAÇO/020A6174.jpg"
+  },
+  "fachada-alliance-city-america": {
+    "width": 2000,
+    "height": 1334,
+    "widths": [
+      480,
+      960,
+      1600
+    ],
+    "source": "referencia/ESPAÇO/020A6756.jpg"
+  },
+  "loja-kimonos-alliance": {
+    "width": 2000,
+    "height": 1334,
+    "widths": [
+      480,
+      960,
+      1600
+    ],
+    "source": "referencia/ESPAÇO/020A6761.jpg"
+  },
+  "convivencia-vista-tatame": {
+    "width": 2000,
+    "height": 1334,
+    "widths": [
+      480,
+      960,
+      1600
+    ],
+    "source": "referencia/ESPAÇO/020A6778.jpg"
+  },
+  "bancada-acompanhamento-treinos": {
+    "width": 2000,
+    "height": 1334,
+    "widths": [
+      480,
+      960,
+      1600
+    ],
+    "source": "referencia/ESPAÇO/020A6780.jpg"
+  },
+  "tatame-alliance-city-america": {
+    "width": 2000,
+    "height": 1334,
+    "widths": [
+      480,
+      960,
+      1600
+    ],
+    "source": "referencia/ESPAÇO/020A6800.jpg"
+  },
+  "panorama-tatame-city-america": {
+    "width": 2000,
+    "height": 1334,
+    "widths": [
+      480,
+      960,
+      1600
+    ],
+    "source": "referencia/ESPAÇO/020A6821.jpg"
+  },
+  "turma-infantil-jiu-jitsu": {
+    "width": 2000,
+    "height": 1334,
+    "widths": [
+      480,
+      960,
+      1600
+    ],
+    "source": "referencia/GERAIS/020A6387.jpg"
+  },
+  "professor-orientacao-criancas": {
+    "width": 2000,
+    "height": 1334,
+    "widths": [
+      480,
+      960,
+      1600
+    ],
+    "source": "referencia/GERAIS/020A6429.jpg"
+  },
+  "coworking-area-convivencia": {
+    "width": 2000,
+    "height": 1334,
+    "widths": [
+      480,
+      960,
+      1600
+    ],
+    "source": "referencia/GERAIS/020A6449.jpg"
+  },
+  "demonstracao-tecnica-infantil": {
+    "width": 2000,
+    "height": 1334,
+    "widths": [
+      480,
+      960,
+      1600
+    ],
+    "source": "referencia/GERAIS/020A6479.jpg"
+  },
+  "pratica-em-dupla-infantil": {
+    "width": 2000,
+    "height": 1334,
+    "widths": [
+      480,
+      960,
+      1600
+    ],
+    "source": "referencia/GERAIS/020A6509.jpg"
+  },
+  "atencao-individual-aluno": {
+    "width": 2000,
+    "height": 1334,
+    "widths": [
+      480,
+      960,
+      1600
+    ],
+    "source": "referencia/GERAIS/020A6514.jpg"
+  },
+  "exercicios-tatame-infantil": {
+    "width": 2000,
+    "height": 1334,
+    "widths": [
+      480,
+      960,
+      1600
+    ],
+    "source": "referencia/GERAIS/020A6559.jpg"
+  },
+  "roda-aprendizado-infantil": {
+    "width": 2000,
+    "height": 1334,
+    "widths": [
+      480,
+      960,
+      1600
+    ],
+    "source": "referencia/GERAIS/020A6576.jpg"
+  },
+  "participacao-turma-infantil": {
+    "width": 2000,
+    "height": 1334,
+    "widths": [
+      480,
+      960,
+      1600
+    ],
+    "source": "referencia/GERAIS/020A6588.jpg"
+  },
+  "encontro-area-convivencia": {
+    "width": 2000,
+    "height": 1334,
+    "widths": [
+      480,
+      960,
+      1600
+    ],
+    "source": "referencia/GERAIS/020A6622.jpg"
+  },
+  "demonstracao-tecnica-adultos": {
+    "width": 2000,
+    "height": 1334,
+    "widths": [
+      480,
+      960,
+      1600
+    ],
+    "source": "referencia/GERAIS/020A6713.jpg"
+  },
+  "aula-experimental": {
+    "width": 818,
+    "height": 610,
+    "widths": [
+      480,
+      818
+    ],
+    "source": "assets/img/aula-experimental.jpg"
+  },
+  "iniciantes": {
+    "width": 480,
+    "height": 640,
+    "widths": [
+      480
+    ],
+    "source": "assets/img/iniciantes.jpeg"
+  },
+  "intermediarios": {
+    "width": 480,
+    "height": 640,
+    "widths": [
+      480
+    ],
+    "source": "assets/img/intermediarios.jpeg"
+  },
+  "avancados": {
+    "width": 544,
+    "height": 478,
+    "widths": [
+      480,
+      544
+    ],
+    "source": "assets/img/avancados.jpg"
+  },
+  "competicao2": {
+    "width": 360,
+    "height": 450,
+    "widths": [
+      360
+    ],
+    "source": "assets/img/competicao2.jpg"
+  },
+  "no-gi": {
+    "width": 439,
+    "height": 640,
+    "widths": [
+      439
+    ],
+    "source": "assets/img/no-gi.jpeg"
+  },
+  "time": {
+    "width": 400,
+    "height": 400,
+    "widths": [
+      400
+    ],
+    "source": "assets/img/time.jpg"
+  },
+  "professor-alexandre": {
+    "width": 720,
+    "height": 1280,
+    "widths": [
+      480,
+      720
+    ],
+    "source": "assets/img/professores/alexandre.jpeg"
+  },
+  "professor-christian": {
+    "width": 828,
+    "height": 1103,
+    "widths": [
+      480,
+      828
+    ],
+    "source": "assets/img/professores/christian.jpeg"
+  },
+  "professor-mauricio": {
+    "width": 1207,
+    "height": 889,
+    "widths": [
+      480,
+      960,
+      1207
+    ],
+    "source": "assets/img/professores/mauricio.jpeg"
+  },
+  "professor-wallaf": {
+    "width": 900,
+    "height": 1600,
+    "widths": [
+      480,
+      900
+    ],
+    "source": "assets/img/professores/wallaf 2.jpeg"
+  }
+}

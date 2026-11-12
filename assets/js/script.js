@@ -99,7 +99,10 @@ navToggle.addEventListener('click', () => {
   navToggle.setAttribute('aria-expanded', String(isOpen));
 });
 mainNav.querySelectorAll('a').forEach(link => {
-  link.addEventListener('click', () => mainNav.classList.remove('open'));
+  link.addEventListener('click', () => {
+    mainNav.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', 'false');
+  });
 });
 
 (function initTimeline() {
@@ -262,10 +265,10 @@ mainNav.querySelectorAll('a').forEach(link => {
   const nextButton = document.getElementById('podium-next');
 
   const professors = [
-    { name: 'Alexandre', role: 'Professor · Faixa-preta', photo: 'assets/img/professores/alexandre.jpeg' },
-    { name: 'Christian', role: 'Professor · Faixa-preta', photo: 'assets/img/professores/christian.jpeg' },
-    { name: 'Mauricio', role: 'Professor · Faixa-preta', photo: 'assets/img/professores/mauricio.jpeg' },
-    { name: 'Wallaf', role: 'Professor · Faixa-marrom', photo: 'assets/img/professores/wallaf%202.jpeg' },
+    { name: 'Alexandre', role: 'Professor · Faixa-preta', photo: 'assets/img/photos/professor-alexandre-720.jpg', webp: 'assets/img/photos/professor-alexandre-480.webp 480w, assets/img/photos/professor-alexandre-720.webp 720w', jpeg: 'assets/img/photos/professor-alexandre-480.jpg 480w, assets/img/photos/professor-alexandre-720.jpg 720w', width: 720, height: 1280 },
+    { name: 'Christian', role: 'Professor · Faixa-preta', photo: 'assets/img/photos/professor-christian-828.jpg', webp: 'assets/img/photos/professor-christian-480.webp 480w, assets/img/photos/professor-christian-828.webp 828w', jpeg: 'assets/img/photos/professor-christian-480.jpg 480w, assets/img/photos/professor-christian-828.jpg 828w', width: 828, height: 1103 },
+    { name: 'Mauricio', role: 'Professor · Faixa-preta', photo: 'assets/img/photos/professor-mauricio-1207.jpg', webp: 'assets/img/photos/professor-mauricio-480.webp 480w, assets/img/photos/professor-mauricio-960.webp 960w, assets/img/photos/professor-mauricio-1207.webp 1207w', jpeg: 'assets/img/photos/professor-mauricio-480.jpg 480w, assets/img/photos/professor-mauricio-960.jpg 960w, assets/img/photos/professor-mauricio-1207.jpg 1207w', width: 1207, height: 889 },
+    { name: 'Wallaf', role: 'Professor · Faixa-marrom', photo: 'assets/img/photos/professor-wallaf-900.jpg', webp: 'assets/img/photos/professor-wallaf-480.webp 480w, assets/img/photos/professor-wallaf-900.webp 900w', jpeg: 'assets/img/photos/professor-wallaf-480.jpg 480w, assets/img/photos/professor-wallaf-900.jpg 900w', width: 900, height: 1600 },
   ];
 
   const wrap = (i) => (i + professors.length) % professors.length;
@@ -298,7 +301,7 @@ mainNav.querySelectorAll('a').forEach(link => {
     card.className = 'podium-card';
     card.dataset.professor = professorIndex;
     card.innerHTML = `
-      <div class="team-photo"><img src="${professor.photo}" alt="Professor ${professor.name}" draggable="false"></div>
+      <div class="team-photo"><picture><source type="image/webp" srcset="${professor.webp}" sizes="(max-width: 600px) 65vw, 320px"><img src="${professor.photo}" srcset="${professor.jpeg}" sizes="(max-width: 600px) 65vw, 320px" width="${professor.width}" height="${professor.height}" loading="lazy" decoding="async" alt="Professor ${professor.name}" draggable="false"></picture></div>
       <h3>${professor.name}</h3>
       <p class="team-role">${professor.role}</p>
     `;
