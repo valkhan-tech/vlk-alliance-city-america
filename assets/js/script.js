@@ -21,16 +21,51 @@ document.addEventListener('click', (e) => {
   }
 });
 
-const heroCarousel = document.getElementById('hero-carousel');
-if (heroCarousel && heroCarousel.querySelectorAll('.hero-bg-slide').length > 1) {
+(function initHeroCarousel() {
+  const heroCarousel = document.getElementById('hero-carousel');
+  if (!heroCarousel) return;
   const slides = heroCarousel.querySelectorAll('.hero-bg-slide');
+  if (slides.length < 2) return;
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   let current = 0;
-  setInterval(() => {
+  let timer;
+  let inView = true;
+  let decoding = false;
+
+  async function nextSlide() {
+    if (decoding) return;
+    const next = (current + 1) % slides.length;
+    const image = slides[next].querySelector('img');
+    decoding = true;
+    try {
+      await image.decode();
+    } catch {
+      return; // Keep the current photo if the next image could not load.
+    } finally {
+      decoding = false;
+    }
+    if (document.hidden || reducedMotion.matches || !inView) return;
     slides[current].classList.remove('active');
-    current = (current + 1) % slides.length;
+    current = next;
     slides[current].classList.add('active');
-  }, 6000);
-}
+  }
+
+  function updatePlayback() {
+    clearInterval(timer);
+    if (!document.hidden && !reducedMotion.matches && inView) {
+      timer = setInterval(nextSlide, 3000);
+    }
+  }
+  document.addEventListener('visibilitychange', updatePlayback);
+  reducedMotion.addEventListener('change', updatePlayback);
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(([entry]) => {
+      inView = entry.isIntersecting;
+      updatePlayback();
+    }).observe(heroCarousel.closest('.hero'));
+  }
+  updatePlayback();
+})();
 
 // Vídeo de apresentação: prévia muda em loop; o botão reinicia com som e controles.
 (function initHeroVideo() {
